@@ -16,7 +16,7 @@ window.renderStatistics = function (ctx, names, times) {
   var max;
   for (var i = 0; i < times.length; i++) {
     times[i] = Math.round(times[i]);
-    if (i == 0) {
+    if (i === 0) {
       max = times[0];
       continue;
     }
@@ -27,15 +27,15 @@ window.renderStatistics = function (ctx, names, times) {
   var indentTextY;
   var indentRectY;
   var part = (HEIGHT_HISTOGRAMME - HEIGHT_TEXT * 2 - INDENT_TEXT * 4) / max;
-  for (var i = 0; i < times.length; i++) {
+  for (i = 0; i < times.length; i++) {
     ctx.fillStyle = '#000';
     indentTextY = INDENT_HISTOGRAMME_Y + HEIGHT_HISTOGRAMME - HEIGHT_TEXT - INDENT_TEXT * 3 - times[i] * part;
-    ctx.fillText(times[i],INDENT_HISTOGRAMME_X + 90 * i, indentTextY);
-    ctx.fillStyle = names[i]=='Вы' ? 'rgba(255, 0, 0, 1)' : 'rgba(0, 0, 255, '+ Math.random();
+    ctx.fillText(times[i], INDENT_HISTOGRAMME_X + 90 * i, indentTextY);
+    ctx.fillStyle = names[i] === 'Вы' ? 'rgba(255, 0, 0, 1)' : 'rgba(0, 0, 255, ' + Math.random();
     indentRectY = indentTextY + INDENT_TEXT;
     ctx.fillRect(INDENT_HISTOGRAMME_X + 90 * i, indentRectY, 40, times[i] * part);
-    indentTextY = indentRectY + times[i] * part + INDENT_TEXT + HEIGHT_TEXT ;
+    indentTextY = indentRectY + times[i] * part + INDENT_TEXT + HEIGHT_TEXT;
     ctx.fillStyle = '#000';
-    ctx.fillText(names[i],INDENT_HISTOGRAMME_X + 90 * i, indentTextY);
+    ctx.fillText(names[i], INDENT_HISTOGRAMME_X + 90 * i, indentTextY);
   }
-}
+};
