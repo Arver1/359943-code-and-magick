@@ -63,7 +63,6 @@ var createDOMElement = function (block) {
     element.querySelector('.setup-similar-label').textContent = characters[i].name;
     element.querySelector('.wizard-coat').style.fill = characters[i].coatColor;
     element.querySelector('.wizard-eyes').style.fill = characters[i].eyesColor;
-    element.cloneNode(true);
     div.appendChild(element);
   }
 };
