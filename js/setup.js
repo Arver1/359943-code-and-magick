@@ -51,8 +51,8 @@ var createCharacters = function (charactersQuantity) {
   }
   return characters;
 };
-var appendCharacters = function (container, characters, containerTemplate) {
-  var template = document.querySelector(containerTemplate).content;
+var appendCharacters = function (container, characters, containerTemplateId) {
+  var template = document.getElementById(containerTemplateId).content;
   var div = document.querySelector(container);
   for (var i = 0; i < characters.length; i++) {
     var element = template.cloneNode(true);
