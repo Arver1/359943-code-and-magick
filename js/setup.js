@@ -1,6 +1,4 @@
 'use strict';
-var template;
-var characters = [];
 var firstNames = [
   'Иван',
   'Хуан Себастьян',
@@ -37,27 +35,25 @@ var eyesColors = [
   'green'
 ];
 var showElement = function (className) {
-  var element = document.querySelector(className);
-  if (element.classList.contains('hidden')) {
-    element.classList.remove('hidden');
-  }
+  document.querySelector(className).classList.remove('hidden');
 };
 var getRandomNumber = function (min, max) {
-  var rand = min + Math.random() * (max - min + 1);
-  rand = Math.floor(rand);
-  return rand;
+  return Math.floor(min + Math.random() * (max - min + 1));
 };
-var createJsObjects = function (number) {
-  for (var i = 0; i < number; i++) {
+var createCharacters = function (charactersQuantity) {
+  var characters = [];
+  for (var i = 0; i < charactersQuantity; i++) {
     characters[i] = {
       name: firstNames[getRandomNumber(0, firstNames.length - 1)] + ' ' + lastNames[getRandomNumber(0, lastNames.length - 1)],
       coatColor: coatColors[getRandomNumber(0, coatColors.length - 1)],
       eyesColor: eyesColors[getRandomNumber(0, eyesColors.length - 1)]
     };
   }
+  return characters;
 };
-var createDOMElement = function (block) {
-  var div = document.querySelector(block);
+var appendCharacters = function (container, characters, containerTemplate) {
+  var template = document.querySelector(containerTemplate).content;
+  var div = document.querySelector(container);
   for (var i = 0; i < characters.length; i++) {
     var element = template.cloneNode(true);
     element.querySelector('.setup-similar-label').textContent = characters[i].name;
@@ -67,9 +63,8 @@ var createDOMElement = function (block) {
   }
 };
 showElement('.setup');
-createJsObjects(4);
-template = document.getElementById('similar-wizard-template').content;
+var characters = createCharacters(4);
 showElement('.setup-similar');
-createDOMElement('.setup-similar-list');
+appendCharacters('.setup-similar-list', characters, 'similar-wizard-template');
 
 
