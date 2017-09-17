@@ -6,6 +6,8 @@
   var setupClose = setup.querySelector('.setup-close');
   var setupWizardForm = setup.querySelector('.setup-wizard-form');
   var openPopup = function () {
+    setup.style.top = window.defaultSetupCoord.y;
+    setup.style.left = window.defaultSetupCoord.x;
     setup.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscPress);
   };
