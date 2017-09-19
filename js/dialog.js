@@ -11,7 +11,7 @@
   var fireballColors = window.characters.getFireballColors();
   var shopElement = setup.querySelector('.setup-artifacts-shop');
   var artifactsElement = setup.querySelector('.setup-artifacts');
-  var artifactsElements = artifactsElement.querySelectorAll('setup-artifacts-cell');
+  var artifactsElements = artifactsElement.querySelectorAll('.setup-artifacts-cell');
   var draggedItem = null;
   wizardCoat.addEventListener('click', function () {
     wizardCoat.style = 'fill: ' + coatColors[window.util.getRandomNumber(0, coatColors.length - 1)];
@@ -59,16 +59,25 @@
     if (evt.target.tagName.toLowerCase() === 'img') {
       draggedItem = evt.target;
       evt.dataTransfer.setData('text/plain', evt.target.alt);
+      for (var i = 0; i < artifactsElements.length; i++) {
+        if (!artifactsElements[i].contains(artifactsElements[i].querySelector('img'))) {
+          artifactsElements[i].style.outline = '2px dashed red';
+        } else {
+          artifactsElements[i].style.outline = '';
+        }
+      }
     }
   });
   artifactsElement.addEventListener('dragover', function (evt) {
-    evt.preventDefault();
+    for (var i = 0; i < artifactsElements.length; i++) {
+      if (!artifactsElements[i].contains(artifactsElements[i].querySelector('img'))) {
+        evt.preventDefault();
+      }
+    }
   });
   artifactsElement.addEventListener('drop', function (evt) {
-    if (!evt.target.contains(draggedItem)) {
-      evt.target.appendChild(draggedItem.cloneNode());
-      evt.target.style.backgroundColor = '';
-    }
+    evt.target.appendChild(draggedItem.cloneNode());
+    evt.target.style.backgroundColor = '';
   });
   artifactsElement.addEventListener('dragenter', function (evt) {
     evt.target.style.backgroundColor = 'yellow';
