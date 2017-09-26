@@ -13,6 +13,8 @@
   var artifactsElement = setup.querySelector('.setup-artifacts');
   var artifactsElements = artifactsElement.querySelectorAll('.setup-artifacts-cell');
   var draggedItem = null;
+  var temp = setup.querySelector('.upload [name = \'avatar\']');
+  var flag;
   wizardCoat.addEventListener('click', function () {
     wizardCoat.style = 'fill: ' + coatColors[window.util.getRandomNumber(0, coatColors.length - 1)];
   });
@@ -35,7 +37,16 @@
   });
   var characters = window.characters.createCharacters(4);
   window.characters.appendCharacters('.setup-similar-list', characters, 'similar-wizard-template');
+  var test = function (evt) {
+    if(flag)
+    evt.preventDefault();
+    console.log('click');
+  };
+  temp.addEventListener('click', test);
   uploadInSetup.addEventListener('mousedown', function (evt) {
+    flag = false;
+    if(temp.getAttribute('name') === 'nothing')
+      temp.setAttribute('name', 'avatar');
     var onMouseMove = function (moveEvt) {
       var shiftX = moveEvt.clientX - startCoordinats.x;
       var shiftY = moveEvt.clientY - startCoordinats.y;
@@ -43,8 +54,15 @@
       setup.style.top = setup.offsetTop + shiftY + 'px';
       startCoordinats.x = moveEvt.clientX;
       startCoordinats.y = moveEvt.clientY;
+      if(shiftX !== 0 || shiftY !== 0) {
+        if(temp.getAttribute('name') === 'avatar')
+        temp.setAttribute('name', 'nothing');
+      }
     };
     var onMouseUp = function () {
+      if(temp.getAttribute('name') === 'nothing') {
+        flag= true;
+      }
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
     };
